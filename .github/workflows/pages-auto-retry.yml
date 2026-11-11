@@ -1,0 +1,27 @@
+# Auto-retry GitHub Pages when a deploy dies with "Startup Failure" (GitHub-side glitch).
+# Runs every 30 min; if the latest pages-build-deployment run failed to start,
+# it requests a fresh Pages build. Also runnable by hand from the Actions tab.
+name: Pages auto-retry
+on:
+  schedule:
+    - cron: "7,37 * * * *"
+  workflow_dispatch:
+permissions:
+  actions: read
+  pages: write
+jobs:
+  retry:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Re-trigger Pages if last deploy failed
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          last=$(gh run list -R "$REPO" -w pages-build-deployment -L 1 --json conclusion -q '.[0].conclusion')
+          echo "Last Pages run: $last"
+          if [ "$last" = "startup_failure" ] || [ "$last" = "failure" ]; then
+            gh api -X POST "repos/$REPO/pages/builds" && echo "Requested new Pages build."
+          else
+            echo "Pages healthy, nothing to do."
+          fi
