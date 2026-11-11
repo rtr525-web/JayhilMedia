@@ -228,7 +228,7 @@ nav.jm-apple-nav .jm-links a.active {
   font-weight: 600;
 }
 
-/* Remove legacy Windows 95 / Netscape browser chrome on /today/ and /topics/ */
+/* Remove legacy Windows 95 / Netscape browser chrome on /topics/ */
 .navtitle, .navtoolbar, .navloc, .navstatus, nav.back {
   display: none !important;
 }
@@ -394,17 +394,25 @@ th, td {
 </style>
 </head>
 <body>
-<nav class="jm-apple-nav" aria-label="Jayhil Media Network"><div class="jm-nav-inner"><a class="jm-brand" href="https://jayhilmedia.com/"><span class="jm-brand-dot">JM</span><span>Jayhil Media</span></a><ul class="jm-links"><li><a href="https://jayhilmedia.com/">Home</a></li><li><a href="/vault/">Empire Hub</a></li><li><a href="/winter-park-road/">Winter Park Road</a></li><li><a href="/topics/">Topics</a></li><li><a href="/crew/">Crew</a></li><li><a href="/drive-desk/">Drive Desk</a></li><li><a href="/ai-sync/" class="active">AI Sync</a></li></ul></div></nav>
+<nav class="jm-apple-nav" aria-label="Jayhil Media Network"><div class="jm-nav-inner"><a class="jm-brand" href="https://jayhilmedia.com/"><span class="jm-brand-dot">JM</span><span>Jayhil Media</span></a><ul class="jm-links"><li><a href="https://jayhilmedia.com/">Home</a></li><li><a href="/empire/">Empire Hub</a></li><li><a href="/winter-park-road/">Winter Park Road</a></li><li><a href="/topics/">Topics</a></li><li><a href="/crew/">Crew</a></li><li><a href="/drive-desk/">Drive Desk</a></li><li><a href="/ai-sync/" class="active">AI Sync</a></li></ul></div></nav>
 
 <div class="wrap">
 
 <!-- STATUSBAR:BEGIN (refreshed by the empire-pages check jobs; the ai-sync-daily-update job's surgical edit of the .stamp line below does not touch this block) -->
-<div class="statusbar"><span class="last-updated">Last updated: Saturday, November 7, 2026 — 6:09 AM ET</span><span>Eastern now: <span class="liveclock">—</span></span></div>
+<<<<<<< HEAD
+<div class="statusbar"><span class="last-updated">Last updated: Tuesday, November 10, 2026 — 7:57 PM ET</span><span>Eastern now: <span class="liveclock">—</span></span></div>
+=======
+<div class="statusbar"><span class="last-updated">Last updated: Tuesday, November 10, 2026 — 7:57 PM ET</span><span>Eastern now: <span class="liveclock">—</span></span></div>
+>>>>>>> 50569d4 (Empire Hub auto-sync (2026-11-10 19:49 ET))
 <!-- STATUSBAR:END -->
 <header>
   <h1>Robert Rang — <span class="gold">AI Sync</span></h1>
   <p class="tag">The public state of the RTR525 media empire and the Hillsboro Blueprint hub — built so any AI assistant can get current in one read.</p>
-  <p class="stamp">Last updated: Saturday, November 7, 2026</p>
+<<<<<<< HEAD
+  <p class="stamp">Last updated: Tuesday, November 10, 2026</p>
+=======
+  <p class="stamp">Last updated: Tuesday, November 10, 2026</p>
+>>>>>>> 50569d4 (Empire Hub auto-sync (2026-11-10 19:49 ET))
 </header>
 
 <section id="about">
@@ -596,6 +604,7 @@ th, td {
       <li><strong>2026-10-16</strong> — Claude (Anthropic) · The Wire + The Directory: Handoff #1: verified the updated feed, the five-AI roster, and the Oct 17 daily brief; hourly check baseline moved to the 22:26 stamp; connector scripts delivered.</li>
       <li><strong>2026-11-05</strong> — Claude, Muse, Gemini &amp; Antigravity (4-Seat Crew) · All Desks + Empire Hub: All 31 active YouTube channels polished with real-photo Public Domain/CC0 banners, avatars, and verified About descriptions; Two-Key Standing Officer Pass active; automated Empire Hub sync running on Alienware.</li>
       <li><strong>2026-11-06</strong> — Claude, Muse, Gemini &amp; Antigravity (4-Seat Crew) · All Desks + Empire Hub: All 31 active YouTube channels polished with real-photo Public Domain/CC0 banners, avatars, and verified About descriptions; Two-Key Standing Officer Pass active; automated Empire Hub sync running on Alienware.</li>
+      <li><strong>2026-11-07</strong> — Claude, Muse, Gemini &amp; Antigravity (4-Seat Crew) · All Desks + Empire Hub: All 31 active YouTube channels polished with real-photo Public Domain/CC0 banners, avatars, and verified About descriptions; Two-Key Standing Officer Pass active; automated Empire Hub sync running on Alienware.</li>
     </ul>
   </div>
 </section>
@@ -607,7 +616,7 @@ th, td {
 
 </div>
 <script>
-fetch('context.json').then(function(r){ return r.json(); }).then(function(d){
+fetch(window.EMPIRE_CONTEXT_URL || 'context.json').then(function(r){ return r.json(); }).then(function(d){
   var list = (d && d.check_ins) || [];
   if (!list.length) return;
   var el = document.getElementById('checkin-list');
@@ -648,5 +657,6 @@ fetch('context.json').then(function(r){ return r.json(); }).then(function(d){
 })();
 </script>
 
+<script>window.EMPIRE_CONTEXT_URL = 'https://dl.dropboxusercontent.com/scl/fi/ktm05mt8efyzjjokm7zow/context.json?rlkey=szirq65g0hndykz7qb9rktm8d';</script>
 </body>
 </html>
