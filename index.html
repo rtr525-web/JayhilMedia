@@ -158,6 +158,80 @@
   .reveal.in { opacity: 1; transform: none; }
   @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } .orb::before { animation: none; } }
 </style>
+<!-- JM-MOBILE: phone layout fixes. Keep this block and the base <style> above it. Do not strip on sync. -->
+<style id="jm-mobile">
+.ctas .chev { display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:12px 28px; border-radius:980px !important; font-weight:600; }
+.ch .ico.web { background:#2c2c2e !important; color:#fff !important; }
+@media (hover: none) {
+  .card:hover, .tile:hover, .stat:hover, a.cbtn:hover, .ch:hover, .btn:hover,
+  .bigstats > div:hover, .navcontent ul > li:hover { transform: none !important; }
+}
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+  .wrap { padding: 0 max(18px, env(safe-area-inset-left)) !important; }
+  section { padding: 64px 0 !important; }
+  .hero { padding: 56px 0 24px !important; }
+  h1, .hero h1, main h1 { font-size: clamp(40px, 12vw, 56px) !important; }
+  h2 { font-size: clamp(28px, 8.5vw, 38px) !important; }
+  .kicker, .hero-kicker { font-size: 11px !important; letter-spacing: .14em !important; }
+  .lead, .hero p, .sub { font-size: 17px !important; margin-bottom: 24px !important; }
+  .ctas { flex-direction: column; gap: 12px; }
+  .ctas .btn, .ctas .chev { width: 100%; max-width: 320px; }
+  .orb { height: 200px !important; margin-top: 36px !important; }
+  .orb::before { width: 180px !important; height: 180px !important; }
+  .orb span { font-size: 40px !important; }
+  .bigstats { gap: 12px !important; margin-top: 32px !important; }
+  .bigstats > div { padding: 18px 10px !important; border-radius: 16px !important; }
+  .bigstats b { font-size: clamp(28px, 9vw, 40px) !important; }
+  .bigstats span { font-size: 11px !important; }
+  .tiles, .channels, .principles { margin-top: 32px !important; gap: 12px !important; }
+  .tile { min-height: 0 !important; padding: 24px 22px !important; border-radius: 20px !important; }
+  .tile .n { font-size: 40px !important; }
+  .tile h3 { margin-top: 14px !important; }
+  .desks { gap: 8px !important; margin-top: 28px !important; }
+  .desks span { padding: 9px 16px !important; font-size: 15px !important; }
+  .ch { padding: 14px 16px !important; }
+  .formcard { padding: 22px 18px !important; margin-top: 32px !important; border-radius: 20px !important; }
+  footer .wrap { flex-direction: column; align-items: center; text-align: center; gap: 8px; }
+  nav.jm-apple-nav { padding: 0 12px !important; }
+  nav.jm-apple-nav .jm-nav-inner { gap: 8px; }
+  nav.jm-apple-nav .jm-links a { padding: 6px 10px; font-size: 13px; }
+}
+@media (max-width: 400px) {
+  nav.jm-apple-nav .jm-brand span:not(.jm-brand-dot) { display: none; }
+}
+
+/* Interactive Channel Filter Bar */
+.channel-filter-bar {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 auto 36px auto;
+  max-width: 860px;
+}
+.cf-pill {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--jm-muted);
+  border-radius: 980px;
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cf-pill:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+.cf-pill.active {
+  background: var(--jm-gold-grad) !important;
+  color: #000000 !important;
+  border-color: transparent !important;
+  box-shadow: 0 4px 18px rgba(245, 158, 11, 0.45);
+}
+</style>
 <style id="jm-apple-system">
 :root {
   /* Apple Cupertino High-End Design Tokens */
@@ -618,56 +692,133 @@ h2 {
   50% { transform: translateY(-16px) scale(1.025); }
 }
 
+/* 10. Award-Winning Cool Features: Scroll Progress Bar & Dynamic Spotlight */
+#jm-scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, #f59e0b, #ea580c 55%, #ec4899 100%);
+  z-index: 100000;
+  pointer-events: none;
+  transition: width 0.08s ease-out;
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.85);
+}
+.spotlight-card {
+  position: relative;
+  overflow: hidden;
+}
+.spotlight-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(400px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(245, 158, 11, 0.14), transparent 50%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.spotlight-card:hover::after {
+  opacity: 1;
+}
+
+/* 11. Mobile Perfection (iPhone SE to Pro Max) */
+@media (max-width: 640px) {
+  .hero { padding: 48px 0 20px !important; }
+  section { padding: 56px 0 !important; }
+  .wrap {
+    padding-left: max(16px, env(safe-area-inset-left)) !important;
+    padding-right: max(16px, env(safe-area-inset-right)) !important;
+  }
+  .ctas {
+    flex-direction: column !important;
+    gap: 12px !important;
+    width: 100%;
+    max-width: 340px;
+    margin: 0 auto;
+  }
+  .btn, button.btn, .btn-secondary, .chev {
+    width: 100% !important;
+    min-height: 48px !important;
+  }
+  .bigstats, .totals {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px !important;
+  }
+  .tiles, .channels, .principles {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+  .orb {
+    height: 230px !important;
+    margin: 36px auto 0 !important;
+  }
+  .orb::before {
+    width: 220px !important;
+    height: 220px !important;
+  }
+  .orb span {
+    font-size: 46px !important;
+  }
+  .formcard {
+    padding: 24px 18px !important;
+  }
+  .row {
+    grid-template-columns: 1fr !important;
+  }
+}
+@media (max-width: 360px) {
+  .orb { height: 180px !important; }
+  .orb::before { width: 170px !important; height: 170px !important; }
+  .orb span { font-size: 36px !important; }
+  h1 { font-size: 34px !important; }
+  h2 { font-size: 26px !important; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
   .reveal { opacity: 1 !important; transform: none !important; }
 }
 </style>
-<!-- JM-MOBILE: phone layout fixes. Keep this block and the base <style> above it. Do not strip on sync. -->
-<style id="jm-mobile">
-.ctas .chev { display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:12px 28px; border-radius:980px !important; font-weight:600; }
-.ch .ico.web { background:#2c2c2e !important; color:#fff !important; }
-@media (hover: none) {
-  .card:hover, .tile:hover, .stat:hover, a.cbtn:hover, .ch:hover, .btn:hover,
-  .bigstats > div:hover, .navcontent ul > li:hover { transform: none !important; }
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "NewsMediaOrganization",
+      "@id": "https://jayhilmedia.com/#organization",
+      "name": "Jayhil Media",
+      "url": "https://jayhilmedia.com/",
+      "logo": "https://jayhilmedia.com/og-image.png",
+      "description": "An independent network of 50+ fact-checked educational channels from Minneola, Florida.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Minneola",
+        "addressRegion": "FL",
+        "addressCountry": "US"
+      },
+      "sameAs": [
+        "https://www.youtube.com/@JayhilMedia",
+        "https://www.youtube.com/@cigarcollege",
+        "https://www.youtube.com/@WinterParkRoad",
+        "https://www.instagram.com/winterparkroad",
+        "https://www.facebook.com/profile.php?id=108870878562428"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://jayhilmedia.com/#website",
+      "url": "https://jayhilmedia.com/",
+      "name": "Jayhil Media",
+      "publisher": {"@id": "https://jayhilmedia.com/#organization"}
+    }
+  ]
 }
-@media (max-width: 640px) {
-  body { font-size: 16px; }
-  .wrap { padding: 0 max(18px, env(safe-area-inset-left)) !important; }
-  section { padding: 64px 0 !important; }
-  .hero { padding: 56px 0 24px !important; }
-  h1, .hero h1, main h1 { font-size: clamp(40px, 12vw, 56px) !important; }
-  h2 { font-size: clamp(28px, 8.5vw, 38px) !important; }
-  .kicker, .hero-kicker { font-size: 11px !important; letter-spacing: .14em !important; }
-  .lead, .hero p, .sub { font-size: 17px !important; margin-bottom: 24px !important; }
-  .ctas { flex-direction: column; gap: 12px; }
-  .ctas .btn, .ctas .chev { width: 100%; max-width: 320px; }
-  .orb { height: 200px !important; margin-top: 36px !important; }
-  .orb::before { width: 180px !important; height: 180px !important; }
-  .orb span { font-size: 40px !important; }
-  .bigstats { gap: 12px !important; margin-top: 32px !important; }
-  .bigstats > div { padding: 18px 10px !important; border-radius: 16px !important; }
-  .bigstats b { font-size: clamp(28px, 9vw, 40px) !important; }
-  .bigstats span { font-size: 11px !important; }
-  .tiles, .channels, .principles { margin-top: 32px !important; gap: 12px !important; }
-  .tile { min-height: 0 !important; padding: 24px 22px !important; border-radius: 20px !important; }
-  .tile .n { font-size: 40px !important; }
-  .tile h3 { margin-top: 14px !important; }
-  .desks { gap: 8px !important; margin-top: 28px !important; }
-  .desks span { padding: 9px 16px !important; font-size: 15px !important; }
-  .ch { padding: 14px 16px !important; }
-  .formcard { padding: 22px 18px !important; margin-top: 32px !important; border-radius: 20px !important; }
-  footer .wrap { flex-direction: column; align-items: center; text-align: center; gap: 8px; }
-  nav.jm-apple-nav { padding: 0 12px !important; }
-  nav.jm-apple-nav .jm-nav-inner { gap: 8px; }
-  nav.jm-apple-nav .jm-links a { padding: 6px 10px; font-size: 13px; }
-}
-@media (max-width: 400px) {
-  nav.jm-apple-nav .jm-brand span:not(.jm-brand-dot) { display: none; }
-}
-</style>
+</script>
 </head>
 <body>
+<div id="jm-scroll-progress" aria-hidden="true"></div>
 <nav class="jm-apple-nav" aria-label="Jayhil Media Network"><div class="jm-nav-inner"><a class="jm-brand" href="https://jayhilmedia.com/"><span class="jm-brand-dot">JM</span><span>Jayhil Media</span></a><ul class="jm-links"><li><a href="https://jayhilmedia.com/" class="active">Home</a></li><li><a href="/winter-park-road/">Winter Park Road</a></li><li><a href="/topics/">Topics</a></li></ul></div></nav>
 
 <header class="hero center" id="top">
@@ -675,7 +826,7 @@ h2 {
     <p class="kicker reveal">Independent. Educational. Made in Florida.</p>
     <h1 class="reveal">Jayhil Media</h1>
     <p class="reveal">Fifty-plus channels that teach real things — from sprinkler repair to national parks — all built on verified facts.</p>
-    <div class="ctas reveal"><a class="btn" href="#channels">Watch now</a><a class="chev" href="#story">Our story</a></div>
+    <div class="ctas reveal"><a class="btn" href="#channels">Watch now</a><a class="chev" href="#story">Our story</a><button class="btn btn-secondary share-btn" onclick="jmShare()" aria-label="Share Jayhil Media"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:7px"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg><span id="share-txt">Share</span></button></div>
     <div class="orb reveal" aria-hidden="true"><span>50+</span></div>
   </div>
 </header>
@@ -735,6 +886,13 @@ h2 {
   <div class="wrap">
     <h2 class="reveal">Watch and follow.</h2>
     <p class="lead reveal">Start with the flagships. Every channel is free.</p>
+    <div class="channel-filter-bar reveal">
+      <button class="cf-pill active" onclick="filterChannels('all', this)">All Properties</button>
+      <button class="cf-pill" onclick="filterChannels('yt', this)">YouTube Video</button>
+      <button class="cf-pill" onclick="filterChannels('fb', this)">Facebook Chronicles</button>
+      <button class="cf-pill" onclick="filterChannels('ig', this)">Instagram &amp; Visual</button>
+      <button class="cf-pill" onclick="filterChannels('web', this)">Flagships &amp; Guides</button>
+    </div>
     <div class="channels">
       <a class="ch reveal" href="https://www.youtube.com/@JayhilMedia"><span class="ico yt"><svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg></span><span><strong>Jayhil Media</strong><small>YouTube · Network station</small></span></a>
       <a class="ch reveal" href="https://www.youtube.com/@cigarcollege"><span class="ico yt"><svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg></span><span><strong>Cigar College</strong><small>YouTube · Cigar education</small></span></a>
@@ -820,6 +978,60 @@ h2 {
   if (new URLSearchParams(location.search).get('sent') === '1') {
     document.getElementById('form-status').textContent = 'Thanks \u2014 your request was sent. We\'ll be in touch.';
   }
+
+  // Interactive Channel Category Switcher
+  function filterChannels(cat, btn) {
+    document.querySelectorAll('.cf-pill').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.channels .ch').forEach(el => {
+      if (cat === 'all') {
+        el.style.display = 'flex';
+      } else {
+        const hasClass = el.querySelector('.' + cat) !== null;
+        el.style.display = hasClass ? 'flex' : 'none';
+      }
+    });
+  }
+</script>
+<script id="jm-apple-fx">
+// Scroll progress bar
+window.addEventListener('scroll', () => {
+  const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+  const bar = document.getElementById('jm-scroll-progress');
+  if (bar) bar.style.width = scrolled + '%';
+}, { passive: true });
+
+// Spotlight cursor tracking across cards
+document.addEventListener('pointermove', (e) => {
+  document.querySelectorAll('.spotlight-card, .card, .tile, .ch').forEach(el => {
+    const rect = el.getBoundingClientRect();
+    el.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+    el.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+  });
+}, { passive: true });
+
+// Native Share API or Clipboard Fallback
+function jmShare() {
+  const data = {
+    title: document.title || 'Jayhil Media',
+    text: 'Independent network of 50+ fact-checked educational channels.',
+    url: window.location.href
+  };
+  if (navigator.share) {
+    navigator.share(data).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      const el = document.getElementById('share-txt');
+      if (el) {
+        const orig = el.textContent;
+        el.textContent = 'Copied ✓';
+        setTimeout(() => el.textContent = orig, 2200);
+      }
+    });
+  }
+}
 </script>
 </body>
 </html>
